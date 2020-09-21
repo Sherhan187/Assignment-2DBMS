@@ -1,0 +1,64 @@
+CREATE TABLE CD (
+    cd_id INT NOT NULL primary key,
+    Art_id INT NOT NULL,
+    Title VARCHAR(255) NOT NULL,
+    Price INT NOT NULL,
+    Genre_id INT NOT NULL,
+    Num_tracks INT NOT NULL
+);
+
+ALTER TABLE CD ADD FOREIGN KEY (Art_id) REFERENCES Artists(Art_id);
+ALTER TABLE CD ADD FOREIGN KEY (Genre_id) REFERENCES Genre(Genre_id);
+
+CREATE TABLE Tracks (
+    Track_id INT NOT NULL primary key,
+    cd_id INT NOT NULL,
+    Album_id INT NOT NULL,
+    Title_track VARCHAR(255) NOT NULL,
+    Duration INT NOT NULL,
+    Price INT NOT NULL
+);
+
+ALTER TABLE Tracks ADD FOREIGN KEY (cd_id) REFERENCES CD(cd_id);
+ALTER TABLE Tracks ADD FOREIGN KEY (Album_id) REFERENCES Album(Album_id);
+
+CREATE TABLE Artists (
+    Art_id INT NOT NULL primary key,
+	Album_id INT NOT NULL,
+    Name VARCHAR(255) NOT NULL,
+    Award_id INT NOT NULL,
+    Production_id INT NOT NULL
+);
+
+ALTER TABLE Artists ADD FOREIGN KEY (Production_id) REFERENCES Production(Production_id);
+
+CREATE TABLE Production (
+    Production_id INT NOT NULL primary key,
+    Name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Genre (
+    Genre_id INT NOT NULL primary key,
+    Name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Groups(
+    Group_id INT NOT NULL primary key,
+    Name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Award(
+    Award_id INT NOT NULL primary key,
+    Name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Album(
+    Album_id INT NOT NULL primary key,
+    Name VARCHAR(255) NOT NULL,
+    Group_id INT NOT NULL,
+    Award_id INT NOT NULL,
+	Art_id  INT NOT NULL
+);
+
+ALTER TABLE Album ADD FOREIGN KEY (Award_id) REFERENCES Award(Award_id);
+ALTER TABLE Album ADD FOREIGN KEY (Group_id) REFERENCES Groups(Group_id);
